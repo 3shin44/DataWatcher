@@ -45,3 +45,7 @@ htmlcov/
 .ipynb_checkpoints/
 
 serverLog.log
+
+# ignore sensitive data
+/authConfig.py
+
