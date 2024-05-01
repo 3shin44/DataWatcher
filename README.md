@@ -13,7 +13,7 @@
     ├─analyzer        分析模組
     ├─auth            獲取驗證資訊模組
     ├─dataFetcher     外部資料獲取模組
-    ├─messageSender	  訊息發送模組
+    ├─messageSender   訊息發送模組
     └─serverLogger    LOG紀錄模組
 ```
 ## Installation
