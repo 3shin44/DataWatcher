@@ -6,7 +6,7 @@
 
 ## Project Structure
 ```
-├─controller        接口層: 提供排成呼叫
+├─controller        接口層: 排程呼叫接口
 ├─dao               資料層: DB連接
 ├─log               LOG記錄檔
 └─service           服務層:
