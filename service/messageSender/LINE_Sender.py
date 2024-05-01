@@ -2,9 +2,8 @@ from service.auth.getEnvVariable import getAuthConfig
 from service.serverLogger.logger import loggerBox
 import requests
 
-"""
-sendLINEMsg: 傳入字串訊息, 透過LINE發送訊息
-"""
+
+# sendLINEMsg: 傳入字串訊息, 透過LINE發送訊息
 def sendLINEMsg(message):
     try:
         # LINE REQUEST CONFIG

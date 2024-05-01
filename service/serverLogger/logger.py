@@ -3,9 +3,8 @@ import os
 from datetime import datetime
 import logging
 
-"""
-loggerBox: 傳入字串訊息, 將加入時間戳記並寫入專案夾中log/資料夾下並以日期做區分
-"""
+
+# loggerBox: 傳入字串訊息, 將加入時間戳記並寫入專案夾中log/資料夾下並以日期做區分
 def loggerBox(msg):
     # LOG檔案存放目錄, 檢查並建立有無存在
     log_dir = os.path.join(os.getcwd(), 'log')
