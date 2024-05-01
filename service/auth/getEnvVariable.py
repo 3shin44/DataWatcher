@@ -1,5 +1,5 @@
-import os
 from dotenv import load_dotenv
+import os
 
 def getAuthConfig(envName):
     load_dotenv()

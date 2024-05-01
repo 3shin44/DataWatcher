@@ -1,7 +1,12 @@
-from service.auth.getEnvVariable import getAuthConfig
-from service.serverLogger.logger import loggerBox
 import requests
 
+# 專案內部PY引用路徑
+import sys
+import os
+root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(root_dir)
+from service.auth.getEnvVariable import getAuthConfig
+from service.serverLogger.logger import loggerBox
 
 # sendLINEMsg: 傳入字串訊息, 透過LINE發送訊息
 def sendLINEMsg(message):
