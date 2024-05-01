@@ -41,7 +41,7 @@ htmlcov/
 # Jupyter Notebook
 .ipynb_checkpoints/
 
-serverLog.log
+log/*.log
 
 # venv
 .venv/
