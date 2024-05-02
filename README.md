@@ -7,8 +7,10 @@
 ## Project Structure
 ```
 ├─controller        接口層: 排程呼叫接口
+├─shellController   接口層(bat): 排程bash執行bat (以venv啟動)
 ├─dao               資料層: DB連接
-├─log               LOG記錄檔
+├─log               LOG記錄檔(Server Log)
+├─report            LOG記錄檔(Report Log)
 └─service           服務層:
     ├─analyzer        分析模組
     ├─auth            獲取驗證資訊模組

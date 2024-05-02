@@ -32,7 +32,7 @@ def checkFaFundPerformance():
         # 計算結果
         if checkFlag:
             currentPerform = estimateUnsettle(allParams)
-            sendMessage = f'{datetime.now().strftime("%Y-%m-%d")} 距離設定門檻: {currentPerform}%'
+            sendMessage = f'{datetime.now().strftime("%Y-%m-%d")}: FaFund 距離設定門檻: {currentPerform}%'
         
         # 發送通知
         sendLINEMsg(sendMessage)

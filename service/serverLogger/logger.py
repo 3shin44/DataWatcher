@@ -10,12 +10,25 @@ def loggerBox(msg):
     # LOG檔案存放目錄, 檢查並建立有無存在
     log_dir = os.path.join(project_dir, 'log')
     os.makedirs(log_dir, exist_ok=True)
-    
-    print(log_dir)
 
     # 產生對應檔案名稱
     current_date = datetime.now().strftime("%Y-%m-%d")
     log_file_path = os.path.join(log_dir, f"serverLog_{current_date}.log")
+
+    # 產生LOG訊息並寫入
+    logging.basicConfig(filename=log_file_path, level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+    logging.info(msg)
+    
+# Report Logger
+def reportBox(msg):
+    project_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    # report檔案存放目錄, 檢查並建立有無存在
+    log_dir = os.path.join(project_dir, 'report')
+    os.makedirs(log_dir, exist_ok=True)
+
+    # 產生對應檔案名稱
+    current_date = datetime.now().strftime("%Y-%m-%d")
+    log_file_path = os.path.join(log_dir, f"report_{current_date}.log")
 
     # 產生LOG訊息並寫入
     logging.basicConfig(filename=log_file_path, level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
