@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 # 專案內部PY引用路徑
 import sys
 import os
@@ -6,24 +7,34 @@ sys.path.append(root_dir)
 from service.serverLogger.logger import loggerBox
 from service.auth.getEnvVariable import getAuthConfig
 from service.dataFetcher.yahooFinance import yf_downloadHistory
+from service.messageSender.LINE_Sender import sendLINEMsg
 from dao.dbUtil import sqlExecutor
 
 # SYNC Stock price to local DB
 # params refes : https://github.com/ranaroussi/yfinance/wiki/Tickers
 def syncStockPrice(params):
-    # get stock list from .env
-    getStockList = generateSyncList()
-    
-    # add postfix for yahoo finance API
-    getStockList = [stock + '.TW' for stock in getStockList]
-    loggerBox(f'getStockList: {getStockList}')
-    
-    # fetch stock price and insert to db
-    for stock in getStockList:
-        # get data from yahoo finance API
-        newStockPrices = yf_downloadHistory(stock, params)
-        if(newStockPrices is not None):
-            insertDB(newStockPrices)
+    try:
+        # get stock list from .env
+        getStockList = generateSyncList()
+        
+        # add postfix for yahoo finance API
+        getStockList = [stock + '.TW' for stock in getStockList]
+        loggerBox(f'getStockList: {getStockList}')
+        
+        # fetch stock price and insert to db
+        for stock in getStockList:
+            # get data from yahoo finance API
+            newStockPrices = yf_downloadHistory(stock, params)
+            if(newStockPrices is not None):
+                insertDB(newStockPrices)
+                
+        # 發送通知
+        loggerBox(f'syncStockPrice success')
+        sendMessage = f'{datetime.now().strftime("%Y-%m-%d")}: Sync total {len(getStockList)} stocks ({params}) completed'
+        sendLINEMsg(sendMessage)
+    except Exception:
+        loggerBox(f'syncStockPrice error. {Exception}')
+        sendLINEMsg(f'{datetime.now().strftime("%Y-%m-%d")}: Sync failed.')
 
 
 # Get stock list from .env (convert string to list)
