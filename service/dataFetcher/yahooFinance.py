@@ -30,22 +30,24 @@ def yf_getTickerPrice(symbol, period):
     finally:
         return data
 
-def yf_downloadHistoryAsCSV(ticker, start, end):
-    # Download data
-    data = yf.download(ticker, start, end)
+def yf_downloadHistory(ticker, params):
+    data = None
+    try:
+        # Download data
+        downloadData = yf.download(ticker, **params)
 
-    # Create DataFrame
-    df = pd.DataFrame(data)
-    # Convert columns to float with two decimal places
-    float_cols = ['Open', 'High', 'Low', 'Close', 'Adj Close']
-    df[float_cols] = df[float_cols].astype(float).round(2)
-    
-    # Add Ticker column 
-    toTWTickerID = ticker.replace(".TW", "")
-    df['Ticker'] = toTWTickerID
-
-    # Set CSV file name
-    exportName = toTWTickerID + "_history_data.csv"
-    # Save DataFrame to CSV
-    df.to_csv(exportName)
-    return exportName
+        # Create DataFrame
+        df = pd.DataFrame(downloadData)
+        # Convert columns to float with two decimal places
+        float_cols = ['Open', 'High', 'Low', 'Close', 'Adj Close']
+        df[float_cols] = df[float_cols].astype(float).round(2)
+        
+        # Add Ticker column 
+        toTWTickerID = ticker.replace('.TW', '')
+        df['Ticker'] = toTWTickerID
+        # assign to result
+        data = df
+    except Exception:
+        loggerBox(f'yf_getTickerPrice error. {Exception}')
+    finally:
+        return data
