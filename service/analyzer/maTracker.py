@@ -4,7 +4,7 @@ import sys
 import os
 root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(root_dir)
-from service.serverLogger.logger import reportBox
+from service.serverLogger.logger import loggerBox, reportBox
 from service.dataFetcher.dataFetcher import *
 from service.auth.getEnvVariable import getAuthConfig
 from service.messageSender.LINE_Sender import sendLINEMsg
@@ -51,11 +51,8 @@ def analysisTicker(ticker='', maThreshold=1):
     # query current pirce
     currentPrice = queryNewestPrice(ticker)
     if(currentPrice is not None):
-        #reportTemplate['currentPriceCLOSE']  = currentPrice[0]
-        #reportTemplate['currentPriceADJ'] = currentPrice[0]
         reportTemplate['currentPriceCLOSE']  = round(currentPrice[0] ,2)
-        #reportTemplate['currentPriceADJ'] = round(currentPrice[1] ,2)
-        reportTemplate['currentPriceADJ'] = 30
+        reportTemplate['currentPriceADJ'] = round(currentPrice[1] ,2)
     
     # query moving average
     maPrice = queryMovingAVG(ticker, maThreshold)
@@ -68,6 +65,8 @@ def analysisTicker(ticker='', maThreshold=1):
     checkFlag = all(value is not None for value in reportTemplate.values())
     matchCloseFlag = reportTemplate['currentPriceCLOSE']  < reportTemplate['maPriceCLOSE'] 
     matchAdjFlag = reportTemplate['currentPriceADJ']  < reportTemplate['maPriceADJ']
+    
+    loggerBox(f'analysisTicker: {reportTemplate}')
     
     # if match condition, return report template 
     # very ugly style to return None or reach condition data
